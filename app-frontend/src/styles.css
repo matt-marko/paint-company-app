@@ -1,0 +1,11 @@
+/* Background style courtesy of https://superdesigner.co/tools/css-backgrounds */
+html {
+    background-size: 4em 4em;
+    background-color: #233541;
+    opacity: 1;
+
+    font-family: 'Nunito', Helvetica, sans-serif;
+}
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

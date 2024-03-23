@@ -1,0 +1,63 @@
+<mat-grid-list cols="3" gutterSize="24">
+    <mat-grid-tile>
+        <app-swimlane header="Out of Stock">
+            <div
+                cdkDropList
+                #outOfStockList="cdkDropList"
+                [cdkDropListData]="outOfStock"
+                [cdkDropListConnectedTo]="[runningLowList, availableList]"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of outOfStock" class="example-box" cdkDrag>
+                    {{item}}
+                </div>
+            </div>
+        </app-swimlane>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <app-swimlane header="Running Low">
+            <div
+                cdkDropList
+                #runningLowList="cdkDropList"
+                [cdkDropListData]="runningLow"
+                [cdkDropListConnectedTo]="[outOfStockList, availableList]"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of runningLow" class="example-box" cdkDrag>
+                    {{item}}
+                </div>
+            </div>
+        </app-swimlane>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <app-swimlane header="Available">
+            <div
+                cdkDropList
+                #availableList="cdkDropList"
+                [cdkDropListData]="available"
+                [cdkDropListConnectedTo]="[outOfStockList, runningLowList]"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of available" class="example-box" cdkDrag>
+                    {{item}}
+                </div>
+            </div>
+        </app-swimlane>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<div class="button-container">
+    <button 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="!changesMade">
+        Save Changes
+    </button>
+    <button
+        mat-raised-button 
+        color="accent"
+        [disabled]="!changesMade" 
+        (click)="cancelChanges()">
+        Cancel
+    </button>
+</div>
