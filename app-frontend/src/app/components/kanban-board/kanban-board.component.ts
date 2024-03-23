@@ -9,6 +9,7 @@ import {
 import { PaintStockService } from 'src/app/services/paint-stock.service';
 import { Status } from 'src/app/enums/status';
 import { PaintPipe } from 'src/app/pipes/paint.pipe';
+import { Paint } from 'src/app/paint';
 
 @Component({
   selector: 'app-kanban-board',
@@ -20,13 +21,21 @@ export class KanbanBoardComponent {
   runningLow: string[] = [];
   available: string[] = [];
 
+  outOfStockCurrent: string[] = [];
+  runningLowCurrent: string[] = [];
+  availableCurrent: string[] = [];
+
+
   changesMade: boolean = false;
 
   paintPipe: PaintPipe = inject(PaintPipe);
   paintStockService: PaintStockService = inject(PaintStockService);
 
   ngOnInit(): void {
-    this.loadPaints();
+
+    this.paintStockService.getPaints().subscribe(paints => {
+      this.loadPaints(paints);
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -46,28 +55,66 @@ export class KanbanBoardComponent {
 
   cancelChanges(): void {
     this.changesMade = false;
-    this.loadPaints();
+
+    this.outOfStock = [...this.outOfStockCurrent];
+    this.runningLow = [...this.runningLowCurrent];
+    this.available = [...this.availableCurrent];
   }
 
-  loadPaints(): void {
-    this.outOfStock = [];
-    this.runningLow = [];
-    this.available = [];
+  saveChanges(): void {
+    let paintPayload: Paint[] = [];
 
-    this.paintStockService.getPaints().forEach(paint => {
-      switch(paint.status) {
-        case Status.outOfStock:
-          this.outOfStock.push(this.paintPipe.transform(paint));
-          break;
-        case Status.runningLow:
-          this.runningLow.push(this.paintPipe.transform(paint));
-          break;
-        case Status.available:
-          this.available.push(this.paintPipe.transform(paint));
-          break;
-        default:
-          break;
-      }
-    });    
+    this.outOfStock.forEach(outOfStockPaintColour => {
+      paintPayload.push({
+        colour: outOfStockPaintColour,
+        status: 'out of stock',
+      });
+    });
+
+    this.runningLow.forEach(runningLowPaintColour => {
+      paintPayload.push({
+        colour: runningLowPaintColour,
+        status: 'running low',
+      });
+    });
+
+    this.available.forEach(availablePaintColour => {
+      paintPayload.push({
+        colour: availablePaintColour,
+        status: 'available',
+      });
+    });
+
+    this.paintStockService.updatePaints(paintPayload).subscribe(paints => {
+      this.loadPaints(paints);
+    });
+  }
+
+  loadPaints(paints: Paint[]): void {
+    this.outOfStockCurrent = [];
+    this.runningLowCurrent = [];
+    this.availableCurrent = [];
+
+    this.paintStockService.getPaints().subscribe(paints => {
+      paints.forEach(paint => {
+        switch(paint.status) {
+          case 'out of stock':
+            this.outOfStockCurrent.push(paint.colour);
+            break;
+          case 'running low':
+            this.runningLowCurrent.push(paint.colour);
+            break;
+          case 'available':
+            this.availableCurrent.push(paint.colour);
+            break;
+          default:
+            break;
+        }
+      });
+
+      this.outOfStock = [...this.outOfStockCurrent];
+      this.runningLow = [...this.runningLowCurrent];
+      this.available = [...this.availableCurrent];
+    });
   }
 }

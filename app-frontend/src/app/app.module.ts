@@ -10,6 +10,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { PaintPipe } from './pipes/paint.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,10 +23,11 @@ import { PaintPipe } from './pipes/paint.pipe';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     /* Angular Material modules */
     MatGridListModule,
     DragDropModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [
     PaintPipe,

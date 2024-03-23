@@ -9,7 +9,7 @@ import { Colour } from '../enums/colour';
 export class PaintPipe implements PipeTransform {
 
   transform(paint: Paint): string {
-    switch(paint.colour) {
+    /*switch(paint.colour) {
       case Colour.blue:
         return 'Blue';
       case Colour.black:
@@ -22,7 +22,9 @@ export class PaintPipe implements PipeTransform {
         return 'Purple';
       default:
         return '';
-    }
+    }*/
+
+    return '';
   }
 
 }
