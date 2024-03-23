@@ -10,6 +10,7 @@ import { PaintStockService } from 'src/app/services/paint-stock.service';
 import { Status } from 'src/app/enums/status';
 import { PaintPipe } from 'src/app/pipes/paint.pipe';
 import { Paint } from 'src/app/paint';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-kanban-board',
@@ -25,11 +26,11 @@ export class KanbanBoardComponent {
   runningLowCurrent: string[] = [];
   availableCurrent: string[] = [];
 
-
   changesMade: boolean = false;
 
   paintPipe: PaintPipe = inject(PaintPipe);
   paintStockService: PaintStockService = inject(PaintStockService);
+  router: Router = inject(Router);
 
   ngOnInit(): void {
 
@@ -116,5 +117,9 @@ export class KanbanBoardComponent {
       this.runningLow = [...this.runningLowCurrent];
       this.available = [...this.availableCurrent];
     });
+  }
+
+  handleLogout(): void {
+    this.router.navigate(['']);
   }
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-md-4">
             <app-swimlane header="Out of Stock">
@@ -54,13 +54,19 @@
         color="primary" 
         [disabled]="!changesMade"
         (click)="saveChanges()">
-            Save Changes
+        Save Changes
     </button>
     <button
         mat-raised-button 
         color="accent"
         [disabled]="!changesMade" 
         (click)="cancelChanges()">
-            Cancel
+        Cancel
+    </button>
+    <button
+        mat-raised-button 
+        color="accent"
+        (click)="handleLogout()">
+        Logout
     </button>
 </div>

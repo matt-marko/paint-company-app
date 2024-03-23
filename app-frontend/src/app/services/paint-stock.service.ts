@@ -14,31 +14,6 @@ export class PaintStockService {
 
   private http: HttpClient = inject(HttpClient);
 
-  constructor() {
-   /* this.paints = [
-      {
-        colour: Colour.black,
-        status: Status.outOfStock,
-      },
-      {
-        colour: Colour.white,
-        status: Status.runningLow,
-      },
-      {
-        colour: Colour.purple,
-        status: Status.runningLow,
-      },
-      {
-        colour: Colour.blue,
-        status: Status.available,
-      },
-      {
-        colour: Colour.grey,
-        status: Status.available,
-      },
-    ];*/
-  }
-
   getPaints(): Observable<Paint[]> {
     return this.http.get<Paint[]>(this.apiUrl);
   }
