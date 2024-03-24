@@ -3,12 +3,8 @@ import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
-  CdkDrag,
-  CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { PaintStockService } from 'src/app/services/paint-stock.service';
-import { Status } from 'src/app/enums/status';
-import { PaintPipe } from 'src/app/pipes/paint.pipe';
 import { Paint } from 'src/app/paint';
 import { Router } from '@angular/router';
 import { User } from 'src/app/user';
@@ -29,17 +25,24 @@ export class KanbanBoardComponent {
   availableCurrent: string[] = [];
 
   changesMade: boolean = false;
+  isLoading: boolean = true;
+  errorHasOccurred: boolean = false;
 
   currentUser: User = {} as User;
 
-  paintPipe: PaintPipe = inject(PaintPipe);
   paintStockService: PaintStockService = inject(PaintStockService);
   userService: UserService = inject(UserService);
   router: Router = inject(Router);
 
   ngOnInit(): void {
-    this.paintStockService.getPaints().subscribe(paints => {
-      this.loadPaints(paints);
+    this.paintStockService.getPaints()
+      .subscribe(paints => {
+        this.loadPaints(paints);
+      }, (error) => {
+        this.errorHasOccurred = true;
+        this.isLoading = false;
+      }, () => {
+        this.isLoading = false;
     });
 
     this.currentUser = this.userService.getCurrentUser();
@@ -129,5 +132,20 @@ export class KanbanBoardComponent {
 
   handleLogout(): void {
     this.router.navigate(['']);
+  }
+
+  openSettings(): void {
+    this.isLoading = true;
+
+    this.userService.requestAllUsers()
+      .subscribe(users => {
+        this.userService.setAllUsers(users);
+        this.router.navigate(['/settings']);
+      }, (error) => {
+        this.errorHasOccurred = true;
+        this.isLoading = false;
+      }, () => {
+        this.isLoading = false;
+    });
   }
 }

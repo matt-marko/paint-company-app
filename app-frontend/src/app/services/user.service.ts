@@ -11,10 +11,23 @@ export class UserService {
   apiUrl: string = environment.apiUrl + 'user';
 
   private currentUser: User = {} as User;
+  private allUsers: User[] = [];
 
   private http: HttpClient = inject(HttpClient);
 
   constructor() { }
+
+  requestUser(username: string): Observable<User> {
+    return this.http.get<User>(this.apiUrl + '/' + username);
+  }
+
+  requestAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);
+  }
+
+  updateUserPermission(name: string, permission: string): Observable<User[]> {
+    return this.http.patch<User[]>(this.apiUrl + '/' + name, permission);
+  }
 
   getCurrentUser(): User {
     return this.currentUser;
@@ -24,4 +37,11 @@ export class UserService {
     this.currentUser = user;
   }
 
+  getAllUsers(): User[] {
+    return this.allUsers;
+  }
+
+  setAllUsers(users: User[]): void {
+    this.allUsers = users;
+  }
 }

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/user';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent {
   userSelected: boolean = false;
   isLoading: boolean = false;
+  errorHasOccurred: boolean = false;
 
   userForm = new FormControl('');
 
@@ -25,8 +27,19 @@ export class LoginComponent {
 
   handleLogin(): void {
     if (this.userForm.value) {
-      this.userService.setCurrentUser({name: this.userForm.value, permission: 'update'});
-      this.router.navigate(['/board']);
+      this.errorHasOccurred = false;
+      this.isLoading = true;
+
+      this.userService.requestUser(this.userForm.value)
+        .subscribe((user: User) => {
+          this.userService.setCurrentUser(user);
+          this.router.navigate(['/board']);
+        }, (error) => {
+          this.errorHasOccurred = true;
+          this.isLoading = false;
+        }, () => {
+          this.isLoading = false;
+      });
     } 
   }
 }

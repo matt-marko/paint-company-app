@@ -11,10 +11,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { PaintPipe } from './pipes/paint.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SettingsComponent } from './components/settings/settings.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SwimlaneComponent,
     KanbanBoardComponent,
     LoginComponent,
-    PaintPipe,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,16 +31,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     /* Angular Material modules */
     DragDropModule,
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
     MatChipsModule,
+    MatRadioModule,
   ],
-  providers: [
-    PaintPipe,
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,9 +7,13 @@
                     #outOfStockList="cdkDropList"
                     [cdkDropListData]="outOfStock"
                     [cdkDropListConnectedTo]="[runningLowList, availableList]"
-                    class="example-list"
+                    class="paint-list"
                     (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of outOfStock" class="example-box" cdkDrag>
+                    <div 
+                        *ngFor="let item of outOfStock" 
+                        class="paint-box" 
+                        cdkDrag
+                        [cdkDragDisabled]="currentUser.permission === 'view'">
                         {{item}}
                     </div>
                 </div>
@@ -22,9 +26,13 @@
                     #runningLowList="cdkDropList"
                     [cdkDropListData]="runningLow"
                     [cdkDropListConnectedTo]="[outOfStockList, availableList]"
-                    class="example-list"
+                    class="paint-list"
                     (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of runningLow" class="example-box" cdkDrag>
+                    <div 
+                        *ngFor="let item of runningLow" 
+                        class="paint-box"
+                        cdkDrag 
+                        [cdkDragDisabled]="currentUser.permission === 'view'">
                         {{item}}
                     </div>
                 </div>
@@ -37,9 +45,13 @@
                     #availableList="cdkDropList"
                     [cdkDropListData]="available"
                     [cdkDropListConnectedTo]="[outOfStockList, runningLowList]"
-                    class="example-list"
+                    class="paint-list"
                     (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of available" class="example-box" cdkDrag>
+                    <div 
+                        *ngFor="let item of available" 
+                        class="paint-box" 
+                        cdkDrag
+                        [cdkDragDisabled]="currentUser.permission === 'view'">
                         {{item}}
                     </div>
                 </div>
@@ -51,6 +63,15 @@
         <div col="col-md-12">
             <mat-chip disableRipple>
                 Logged in as {{ currentUser.name }}
+            </mat-chip>
+            <mat-chip disableRipple>
+                Role: {{ currentUser.permission }}
+            </mat-chip>
+            <mat-chip disableRipple *ngIf="isLoading">
+                Loading...
+            </mat-chip>
+            <mat-chip disableRipple *ngIf="errorHasOccurred">
+                An error has occurred. Please log in later.
             </mat-chip>
         </div>
     </div>
@@ -79,8 +100,9 @@
             </button>
             <button
                 mat-raised-button
+                *ngIf="currentUser.permission === 'admin'"
                 color="primary"
-                >
+                (click)="openSettings()">
                 Admin Settings
             </button>
         </div>

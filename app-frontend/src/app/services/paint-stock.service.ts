@@ -1,7 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Colour } from '../enums/colour';
-import { Status } from '../enums/status';
 import { Paint } from '../paint';
 import { Observable, map } from 'rxjs';
 import { environment } from '../environments/environment';

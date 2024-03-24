@@ -1,4 +1,4 @@
-.example-list {
+.paint-list {
     border: solid 1px #ccc;
     min-height: 60px;
     background: white;
@@ -7,7 +7,7 @@
     display: block;
 }
   
-.example-box {
+.paint-box {
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
@@ -19,6 +19,12 @@
     cursor: move;
     background: white;
     font-size: 14px;
+}
+
+.paint-box.cdk-drag-disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    user-select: none;
 }
   
 .cdk-drag-preview {
