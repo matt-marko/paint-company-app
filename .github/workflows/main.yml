@@ -18,11 +18,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Change to app-frontend directory
-        run: cd app-frontend
-
       - name: Build Project
-        run: npm run build
+        run: npm run build --prefix app-frontend
 
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
