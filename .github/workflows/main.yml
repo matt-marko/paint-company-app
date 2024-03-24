@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Build Project
+        run: npm run build
+
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
