@@ -12,7 +12,7 @@ import java.util.List;
 @Path("/paint")
 public class PaintResource {
 
-    // Method to initialize paints
+    /* Method to initialize paints */
     @PostConstruct
     void config() {
         initdb();
@@ -21,26 +21,25 @@ public class PaintResource {
     @Transactional
     public void initdb() {
         PaintEntity paint1 = new PaintEntity();
-        paint1.setColour("blue");
+        paint1.setColour("Blue");
         paint1.setStatus("out of stock");
 
         PaintEntity paint2 = new PaintEntity();
-        paint2.setColour("purple");
+        paint2.setColour("Purple");
         paint2.setStatus("running low");
 
         PaintEntity paint3 = new PaintEntity();
-        paint3.setColour("white");
+        paint3.setColour("White");
         paint3.setStatus("running low");
 
         PaintEntity paint4 = new PaintEntity();
-        paint4.setColour("black");
+        paint4.setColour("Black");
         paint4.setStatus("available");
 
         PaintEntity paint5 = new PaintEntity();
-        paint5.setColour("grey");
+        paint5.setColour("Grey");
         paint5.setStatus("available");
 
-        // Persist the paints
         UserEntity.persist(paint1);
         UserEntity.persist(paint2);
         UserEntity.persist(paint3);
@@ -48,6 +47,7 @@ public class PaintResource {
         UserEntity.persist(paint5);
     }
 
+    /* GET a list of all paints */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPaints() {
@@ -55,6 +55,7 @@ public class PaintResource {
         return Response.ok(paints).build();
     }
 
+    /* POST a list of paints to the database */
     @POST
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +72,7 @@ public class PaintResource {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    /* PUT an updated list of paints on the database */
     @PUT
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
@@ -88,7 +90,6 @@ public class PaintResource {
 
                 if (existingPaintColour.equals(updatedPaintColour)) {
                     existingPaint.setStatus(updatedPaint.getStatus());
-                    existingPaint.persist();
                     break;
                 }
             }

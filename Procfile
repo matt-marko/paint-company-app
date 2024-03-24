@@ -1,1 +1,0 @@
-sh -c 'cd app-backend && java $JAVA_OPTS -jar target/quarkus-app/quarkus-run.jar'

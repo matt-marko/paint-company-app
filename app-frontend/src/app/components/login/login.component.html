@@ -6,6 +6,7 @@
                 <mat-option value="John">John</mat-option>
                 <mat-option value="Jane">Jane</mat-option>
                 <mat-option value="Adam">Adam</mat-option>
+                <mat-option value="Painter">Painter</mat-option>
             </mat-select>
         </mat-form-field>
         <button 
@@ -17,6 +18,7 @@
         </button>
         <br>
         <h2 *ngIf="isLoading">Loading...</h2>
-        <h2 *ngIf="errorHasOccurred">An error has occurred. <br> Please try again later.</h2>
+        <h2 *ngIf="errorHasOccurred">An error has occurred.<br>Please try again later.</h2>
+        <h2 *ngIf="userNotAllowed">You do not have permissions to enter.<br>Please contact your administrator.</h2>
     </div>
 </div>
