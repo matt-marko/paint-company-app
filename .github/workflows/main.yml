@@ -18,9 +18,15 @@ jobs:
         with:
           node-version: 18
 
+      - name: Change to app-frontend directory
+        run: cd app-frontend
+
+      - name: Build Project
+        run: npm run build
+
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
       - name: Deploy to Netlify
         run: netlify deploy --prod --auth "${{ secrets.NETLIFY_ACCESS_TOKEN }}" \
-              --dir=app-frontend/dist/app-frontend --site="paint-company-matt"
+              --dir=dist/app-frontend --site="paint-company-matt"
