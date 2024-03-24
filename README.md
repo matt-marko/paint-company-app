@@ -34,3 +34,15 @@ For the backend, the source code is contained within the `src/main/java/org/pain
 - The `PaintResource` class contains the REST endpoints for getting and updating paints. It contains GET, POST, and PUT methods.
 - The `UserEntity` class contains the structure of the "User" object at the database level
 - The `UserResource` class contains the REST endpoints for getting and updating users and their permissions. It contains GET, POST, and PATCH methods.
+
+## DevOps Pipeline
+
+A CI pipeline exists for this project, which uses GitHub Actions.
+
+For the frontend, it deploys the application to Netlify. The workflow file may be found in `app-frontend/.github/workflows/main.yml`
+
+For the backend, it deploys the application to Heroku. The workflow file may be found in `app-backend/.github/workflows/main.yml`.
+
+## IMPORTANT NOTE
+
+This repository contains the code for both [paint-company-app-backend](https://www.github.com/matt-marko/paint-company-app-backend) and [paint-company-app-frontend](https://www.github.com/matt-marko/paint-company-app-frontend). The pipelines are configured to run only in these two repositories, so the deployments are based off these two repositories as well. This repo is just to show the code for the two components.
