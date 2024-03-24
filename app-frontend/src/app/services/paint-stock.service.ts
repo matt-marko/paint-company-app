@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class PaintStockService {
-  apiUrl: string = environment.apiUrl;
+  apiUrl: string = environment.apiUrl + 'paint';
 
   private http: HttpClient = inject(HttpClient);
 

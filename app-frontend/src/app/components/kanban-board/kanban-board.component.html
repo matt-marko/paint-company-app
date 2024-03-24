@@ -46,27 +46,43 @@
             </app-swimlane>
         </div>
     </div>
-</div>
 
-<div class="button-container">
-    <button 
-        mat-raised-button 
-        color="primary" 
-        [disabled]="!changesMade"
-        (click)="saveChanges()">
-        Save Changes
-    </button>
-    <button
-        mat-raised-button 
-        color="accent"
-        [disabled]="!changesMade" 
-        (click)="cancelChanges()">
-        Cancel
-    </button>
-    <button
-        mat-raised-button 
-        color="accent"
-        (click)="handleLogout()">
-        Logout
-    </button>
+    <div class="row chip-row">
+        <div col="col-md-12">
+            <mat-chip disableRipple>
+                Logged in as {{ currentUser.name }}
+            </mat-chip>
+        </div>
+    </div>
+
+    <div class="row button-container">
+        <div col="col-md-12">
+            <button 
+                mat-raised-button 
+                color="primary" 
+                [disabled]="!changesMade"
+                (click)="saveChanges()">
+                Save Changes
+            </button>
+            <button
+                mat-raised-button 
+                color="accent"
+                [disabled]="!changesMade" 
+                (click)="cancelChanges()">
+                Cancel
+            </button>
+            <button
+                mat-raised-button
+                color="warn"
+                (click)="handleLogout()">
+                Logout
+            </button>
+            <button
+                mat-raised-button
+                color="primary"
+                >
+                Admin Settings
+            </button>
+        </div>
+    </div>
 </div>

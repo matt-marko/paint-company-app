@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent {
   userSelected: boolean = false;
+  isLoading: boolean = false;
 
   userForm = new FormControl('');
 

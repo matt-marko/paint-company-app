@@ -11,6 +11,8 @@ import { Status } from 'src/app/enums/status';
 import { PaintPipe } from 'src/app/pipes/paint.pipe';
 import { Paint } from 'src/app/paint';
 import { Router } from '@angular/router';
+import { User } from 'src/app/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-kanban-board',
@@ -28,15 +30,19 @@ export class KanbanBoardComponent {
 
   changesMade: boolean = false;
 
+  currentUser: User = {} as User;
+
   paintPipe: PaintPipe = inject(PaintPipe);
   paintStockService: PaintStockService = inject(PaintStockService);
+  userService: UserService = inject(UserService);
   router: Router = inject(Router);
 
   ngOnInit(): void {
-
     this.paintStockService.getPaints().subscribe(paints => {
       this.loadPaints(paints);
     });
+
+    this.currentUser = this.userService.getCurrentUser();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -63,6 +69,8 @@ export class KanbanBoardComponent {
   }
 
   saveChanges(): void {
+    this.changesMade = false;
+
     let paintPayload: Paint[] = [];
 
     this.outOfStock.forEach(outOfStockPaintColour => {
