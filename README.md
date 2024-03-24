@@ -1,6 +1,6 @@
 # paint-company-app
 
-This project was created using the [Angular](https://www.angular.io) framework and the [Quarkus] (https://www.quarkus.io) framework.
+This project was created using the [Angular](https://www.angular.io) framework and the [Quarkus](https://www.quarkus.io) framework.
 
 This repository contains both the frontend and backend components.
 
